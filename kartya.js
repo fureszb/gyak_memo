@@ -1,31 +1,41 @@
+let KIVALASZTL = [];
 export class kartya {
 
     #kep;
     #id;
-    KIVALASZTL = [];
     constructor(kep, id, szuloElem) {
         this.#kep = kep;
         this.#id = id;
-        this.szuloElem = szuloElem.append(`<div class="kepek"><img src="./kepek/hatter.jpg" alt=""></div>`);
+        this.szuloElem = szuloElem.append(`<div class="kepek"><img src="./kepek/hatter.jpg" alt="" id="${this.#id}"></div>`);
         this.kapcsolo = true;
         this.elem = $(".kepek:last-child");
         this.kattintasTrigger();
+
+
+
     }
 
     kattintasTrigger() {
-        const self = this;
+        let self = this;
+        let id = this.#id;
         this.elem.on("click", function () {
-           //KIVALASZTL (lista) feltöltése az id-kel
-            self.KIVALASZTL.push(self.#id);
+            //KIVALASZTL (lista) feltöltése az id-kel
+            KIVALASZTL.push(id);
+            console.log(id);
 
-            self.kivalasztas(self.KIVALASZTL);
+            if (KIVALASZTL.length == 2) {
+                console.log(KIVALASZTL);
 
+            }
             //megfordítás és visszafordítás kattintásra
             self.fordit(self.#kep);
             setTimeout(function () {
                 self.visszafordit();
             }, 300);
-
+            self.kivalasztas();
+            if (this.kapcs) {
+                self.kivalasztas();
+            }
         });
 
     }
@@ -36,17 +46,18 @@ export class kartya {
     visszafordit() {
         this.elem.find("img").attr("src", "./kepek/hatter.jpg");
     }
-    kivalasztas(Klista) {
-        // console.log("hossza: ", Klista.length);
+    kivalasztas() {
+        if (KIVALASZTL.length == 2) {
+            console.log("k1: ", KIVALASZTL[0])
+            console.log("k2: ", KIVALASZTL[1])
+            console.log("teljes: ", KIVALASZTL)
 
-        if (Klista.length == 2) {
-            // console.log("k1: ",Klista[0])
-            // console.log("k1: ",Klista[1])
-            if (Klista[0] == Klista[1]) {
-                this.elem.find(`#${Klista[0]}`).attr("src", "./kepek/hatter");
-                this.elem.find(`#${Klista[1]}`).attr("src", "./kepek/hatter");
+            if (KIVALASZTL[0] === (KIVALASZTL[1])) {
+                this.elem.find(`img#${KIVALASZTL[0]}`).attr("src", "");
+                this.elem.find(`img#${KIVALASZTL[1]}`).attr("src", "");
             }
-            Klista = [];
+            KIVALASZTL = [];
+
         }
 
     }

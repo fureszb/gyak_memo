@@ -53,8 +53,10 @@ export class kartya {
             console.log("teljes: ", KIVALASZTL)
 
             if (KIVALASZTL[0] === (KIVALASZTL[1])) {
-                this.elem.find(`img#${KIVALASZTL[0]}`).attr("src", "");
-                this.elem.find(`img#${KIVALASZTL[1]}`).attr("src", "");
+               
+                this.elem.find(`img#${KIVALASZTL[0]}`).css("visibility", "hidden");
+                this.elem.find(`img#${KIVALASZTL[1]}`).css("visibility", "hidden");
+                //this.elem.find(`img#${KIVALASZTL[1]}`).attr("src", "");
             }
             KIVALASZTL = [];
 
